@@ -387,3 +387,82 @@ WARNING: Після встановлення хотфіксів потрібно
 
 Тимчасове рішення: ::
 Необхідно перейти до редагування реєстру > вкладка авторизації надавачів послуг > ввімкнути та вимкнути перемикач на інтерфейсі та підтвердити зміни.
+
+== Швидкі виправлення (хот-фікси)
+
+NOTE: Після внесення змін для обох хотфіксів, визначених у цьому розділі, важливо запустити процес збірки Docker-образів. Для цього запустіть пайплайн *MASTER-Build-cluster-mgmt*, щоб застосувати ці виправлення.
+
+=== Компонент openshift/origin-cli
+
+Хот-фікси (швидкі виправлення) для компонента `openshift/origin-cli`:
+
+. Знайдіть репозиторій під назвою _components/infra/control-plane-nexus_.
+
+. У цьому репозиторії знайдіть файл під назвою _deploy-templates/nexus-operator/templates/dns-fixer.yaml_. Цей файл містить конфігураційні налаштування, які вам потрібно змінити.
+
+. Внесіть одну зміну у гілку цього репозиторію під назвою `1.9.6.2`.
+
+. Зміна полягає в оновленні одного рядка коду. Знайдіть рядок, який виглядає так:
++
+[source,yaml]
+----
+image: 'openshift/origin-cli'
+----
+
+. Замініть цей рядок на наступний:
++
+[source,yaml]
+----
+image: 'quay.io/openshift/origin-cli'
+----
+
+=== Компонент openshift/origin-oauth-proxy
+
+Хот-фікси (швидкі виправлення) для компонента `openshift/origin-oauth-proxy`:
+
+. Перейдіть до репозиторію під назвою _components/infra/service-mesh_.
+
+. У цьому репозиторії вам знайдіть файл _deploy-templates/jaeger-operator/templates/deployment.yaml_. Цей файл містить важливі налаштування, які потрібно змінити.
+
+. Внесіть одну зміну в гілку цього репозиторію під назвою `1.9.6.4`.
+
+. У цьому файлі знайдіть рядок коду, який виглядає так:
++
+[source,yaml]
+----
+args: ["start","--kafka-provision=no"]
+----
+
+. Замініть цей рядок на наступний:
++
+[source,yaml]
+----
+args: ["start","--kafka-provision=no","--openshift-oauth-proxy-image=quay.io/openshift/origin-oauth-proxy:4.12.0"]
+----
+
+=== Компонент libraries/edp-library-stages-fork
+
+Хот-фікси (швидкі виправлення) для компонента `libraries/edp-library-stages-fork`:
+
+. Щоб забезпечити коректну роботу відновлення (`restore`), вам необхідно внести певні зміни у бібліотеку з кодом. Для цього перейдіть до репозиторію _libraries/edp-library-stages-fork_.
+
+. У цьому репозиторії внесіть зміни у гілку під назвою `build/0.2.1-SNAPSHOT.418`.
+
+. У цій гілці відредагуйте файл _src/com/epam/edp/customStages/impl/registrytenanttemplate/CleanUpRegistry.groovy_.
+
+. Знайдіть у файлі блок коду, який починається з `components.releases.each`. Замініть цей блок коду на наступний:
++
+[source,groovy]
+----
+components.releases.each {
+    if (it.labels.type == 'remote') {
+        script.dir('/opt/repositories/' + it.name) {
+            script.checkout([$class                           : 'GitSCM', branches: [[name: it.labels.branch]],
+                             doGenerateSubmoduleConfigurations: false, extensions: [],
+                             submoduleCfg                     : [],
+                             userRemoteConfigs                : [[credentialsId: context.git.credentialsId,
+                                                                  url          : gitURL + it.name]]])
+        }
+    }
+}
+----
