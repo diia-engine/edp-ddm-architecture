@@ -390,9 +390,11 @@ WARNING: Після встановлення хотфіксів потрібно
 
 == Швидкі виправлення (хот-фікси)
 
+=== Компоненти openshift
+
 NOTE: Після внесення змін для обох хотфіксів, визначених у цьому розділі, важливо запустити процес збірки Docker-образів. Для цього запустіть пайплайн *MASTER-Build-cluster-mgmt*, щоб застосувати ці виправлення.
 
-=== Компонент openshift/origin-cli
+==== Компонент openshift/origin-cli
 
 Хот-фікси (швидкі виправлення) для компонента `openshift/origin-cli`:
 
@@ -416,7 +418,7 @@ image: 'openshift/origin-cli'
 image: 'quay.io/openshift/origin-cli'
 ----
 
-=== Компонент openshift/origin-oauth-proxy
+==== Компонент openshift/origin-oauth-proxy
 
 Хот-фікси (швидкі виправлення) для компонента `openshift/origin-oauth-proxy`:
 
