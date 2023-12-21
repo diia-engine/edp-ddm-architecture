@@ -47,13 +47,18 @@ WARNING: Ця інструкція стосується кластерів, що
 [#update-platform]
 == Оновлення Платформи
 
-=== Запуск пайплайну platform-deploy
+=== Розгортання нової версії Інсталера
 
-Запустіть пайплайн `platform-deploy` в Jenkins CICD2 з опціями оновлення та необхідною версією збірки, а саме `1.9.6.34`.
+[TIP]
+====
+Виконайте оновлення Платформи згідно з інструкціями:
 
-Вкажіть необхідний режим розгортання (`deploymentMode`).
+* xref:installation/platform-deployment/platform-aws-deployment.adoc#installer-update[Оновлення Платформи в OKD-кластері на AWS]
 
-=== Оновлення cluster-mgmt
+* xref:installation/platform-deployment/platform-vsphere-deployment.adoc#installer-update[Оновлення Платформи в OKD-кластері на vSphere]
+====
+
+=== Оновлення інфраструктурних компонентів Платформи
 
 Цей крок описує стандартний процес оновлення інфраструктурних компонентів Платформи за допомогою пайплайну `cluster-mgmt` в адміністративній панелі *Control Plane*.
 

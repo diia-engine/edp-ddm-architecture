@@ -554,6 +554,7 @@ sudo docker run --rm --name control-plane-installer-<version> --user root:$(id -
 +
 * де `deploymentMode` може бути `development` чи `production`.
 
+[#installer-update]
 ==== Оновлення Платформи
 
 ===== Передумови
