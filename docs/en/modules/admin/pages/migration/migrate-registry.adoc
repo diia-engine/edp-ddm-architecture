@@ -171,6 +171,40 @@ For details on backing up and restoring registries, see xref:backup-restore/over
 
 . If the latest Velero backup has a *Completed* status, you can proceed. If the status of the Velero backup is not *Completed*, you will need to contact an L2-L3 support team to ensure the Jenkins pipeline functions properly.
 
+. Obtain consistent data in registry bucket backups during migration.
+
+.. Get the latest backups of S3 buckets in the `velero` project. Open the *Workloads* section, then go to *CronJobs*. Use the search panel here to filter buckets by the registry name, for example, `migrationreg`.
++
+.CronJobs
+image::admin:migrate-registry/migrate-registry-01.png[]
+
+.. Open each *CronJob* and change its start time to the nearest possible time. For example, set it to run in the next 10-15 minutes. To do this, go to the settings of each CronJob, open its *YAML* configuration, and change the `spec.schedule` parameter. For example, to run a CronJob daily at 10:50 UTC, use the following configuration:
++
+.CronJob details. YAML configuration
+[source,yaml]
+----
+spec:
+  schedule: 50 10 * * *
+----
++
+[CAUTION]
+====
+When working with `cron`, the time is set in https://time.is/UTC[UTC].
+====
++
+.CronJob details. Schedule
+image::admin:migrate-registry/migrate-registry-02.png[]
+
+.. After this, wait for all the CronJobs to start and complete. You can check the progress and status in the *Jobs* section by selecting the relevant Job and viewing the *Status* section, where a `✅ Complete` mark should be present.
++
+.CronJob details. Jobs
+image::admin:migrate-registry/migrate-registry-03.png[]
++
+.Job details. Status
+image::admin:migrate-registry/migrate-registry-04.png[]
+
+.. By following these steps, you will be able to obtain consistent data from the backups of registry buckets in the migration process.
+
 . Prevent modifying the registry using Jenkins pipelines.
 +
 
