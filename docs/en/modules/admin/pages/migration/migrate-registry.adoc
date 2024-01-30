@@ -326,12 +326,9 @@ In the registry repository, go to *Branches* > `master`, then to *deploy-templat
 ** `Description: Update registry before migration`.
 +
 After creating the change, in the change itself click *`Edit`* > *`ADD/OPEN/UPLOAD`* -- find the *_values.yaml_* (*_values.gotmpl_*) file.
-Transfer the copied *_values.yaml_* (*_values.gotmpl_*) configuration from Cluster A to this file.
+Transfer the copied *_values.yaml_* (*_values.gotmpl_*) configuration from the Cluster to this file.
 * Repeat the operation for both files: *_values.yaml_* and *_values.gotmpl_*.
 * Save the changes, wait for the *Code Review* pipeline to pass (*CI Jenkins `+1`*), set `*Code-review +2*`, and merge the changes to the `master` branch with the `*Submit*` button.
-
-. Go to Jenkins, change the configuration of *MASTER-Build-`<registry name>`*: +
-Go to *MASTER-Build-`<registry name>`* > *Configure*, and in the *Build Triggers* section, uncheck the box for *Disable this project*. Then save the changes with the *`Save`* button.
 
 == Restoring the registry on cluster B
 
