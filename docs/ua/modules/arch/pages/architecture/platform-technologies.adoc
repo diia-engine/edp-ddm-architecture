@@ -5,7 +5,7 @@ include::platform:ROOT:partial$admonitions/language-ua.adoc[]
 
 == Загальний опис
 
-Високорівнева структурна діаграма нижче представляє ключові технології та їх застосування в реалізації функціональних та нефункціональних вимог _Платформою Реєстрів_.
+Ця сторінка познайомить вас із ключовими технологіями та їх застосуванням у реалізації функціональних та нефункціональних вимог _Платформою Реєстрів_.
 
 include::platform:ROOT:partial$admonitions/os-apache-license-ua.adoc[]
 
@@ -354,12 +354,12 @@ image::architecture/ddm-platform-tech-view.svg[]
 |===
 |Технологія|Версія|Ліцензія|Опис
 
-|[[mailu]]https://mailu.io/[Mailu]|1.8|?|Пакет ПЗ для відправки та отримання поштових повідомлень
-|[[postfix]]https://mailu.io/[Postfix]|?|?|Поштовий SMAP-агент
-|[[dovecot]]https://mailu.io/[Dovecot]|?|?|Високопродуктивний IMAP / POP3 поштовий сервер
-|[[roundcube]]https://mailu.io/[Roundcube]|?|?|Поштовий IMAP-клієнт з веб-інтерфейсом
-|[[clamav]]https://mailu.io/[ClamAV]|?|?|Пакет проти-вірусного ПЗ для виявлення троянів, вірусів, шкідливих програм та інших зловмисних загроз
-|[[rspamd]]https://mailu.io/[Rspamd]|?|?|ПЗ для виявлення та фільтрації поштового спаму
+|[[mailu]]https://mailu.io/[Mailu]|1.8|https://opensource.org/licenses/MIT[MIT]|Пакет ПЗ для відправлення та отримання поштових повідомлень
+|[[postfix]]https://www.postfix.org/[Postfix]|3.6.7|https://www.eclipse.org/legal/epl-2.0/[Eclipse Public License v2.0]|Поштовий SMTP-агент, який виконує пересилання електронних листів за допомогою SMTP. Postfix підтримує широкий спектр функцій, включаючи керування чергою повідомлень, фільтрацію спаму, а також шифрування для забезпечення безпечної передачі даних.
+|[[dovecot]]https://www.dovecot.org/[Dovecot]|2.3.15|https://opensource.org/licenses/MIT[MIT]|Високопродуктивний IMAP / POP3 поштовий сервер
+|[[roundcube]]https://roundcube.net/[Roundcube]|1.4.11|https://www.gnu.org/licenses/gpl-3.0.html[GPLv3]|Поштовий IMAP-клієнт із вебінтерфейсом
+|[[clamav]]https://www.clamav.net/[ClamAV]|0.103.3|https://www.gnu.org/licenses/old-licenses/gpl-2.0.html[GPLv2]|Пакет проти-вірусного ПЗ для виявлення троянів, вірусів, шкідливих програм та інших зловмисних загроз
+|[[rspamd]]https://rspamd.com/[Rspamd]|2.7|https://www.apache.org/licenses/LICENSE-2.0[APACHE LICENSE, v2.0]|ПЗ для виявлення та фільтрації поштового спаму
 
 |===
 
