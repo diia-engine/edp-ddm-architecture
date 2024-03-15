@@ -97,10 +97,10 @@ $ sudo update-ca-trust extract
 * одну тег-категорію (1 Tag Category)
 * 1 тег (1 Tag)
 * віртуальні машини (Virtual machines):
-    - один шаблон (1 template)
-    - одну тимчасову ноду bootstrap (1 temporary bootstrap node)
-    - три ноди консолі для управління Платформою (3 control-plane nodes)
-    - три обчислювальні машини (3 compute machines)
+- один шаблон (1 template)
+- одну тимчасову ноду bootstrap (1 temporary bootstrap node)
+- три ноди консолі для управління Платформою (3 control-plane nodes)
+- три обчислювальні машини (3 compute machines)
 
 ==== Необхідні вимоги до ресурсів
 
@@ -462,11 +462,7 @@ wget -O mdtu-ddm-platform-<version>.zip https://nexus-public-mdtu-ddm-edp-cicd.a
 +
 [source,shellscript]
 ----
-<<<<<<< HEAD   (e9e32c [MDTUDDM-00000] added fixes to special-steps 1.9.6)
 unzip /tmp/mdtu-ddm-platform-<version>.zip -d /home/<user>/workdir/installer-<version>
-=======
-tar -xvzf /tmp/mdtu-ddm-platform-<VERSION>.tar.gz -d /home/<user>/workdir/installer-<version>
->>>>>>> CHANGE (b7665d [MDTUDDM-28890] Platform deployment instructions have been m)
 ----
 
 . Перенесіть _kubeconfig_ після встановлення кластера:
@@ -514,8 +510,8 @@ export VSPHERE_VAULT_INSTANCE_IP=""
 export VSPHERE_MINIO_INSTANCE_IP=""
 
 ### id.gov.ua ###
-export ID_GOV_UA_CLIENT_ID=""
-export ID_GOV_UA_CLIENT_SECRET=""
+export idgovuaClientId=""
+export idgovuaClientSecret=""
 ----
 
 . Відредагуйте _install.sh_, а саме після `source ./functions.sh` додайте `source ./exports.list`.
@@ -553,14 +549,11 @@ sudo docker tag ${IMAGE_CHECKSUM} control-plane-installer:<version>;
 +
 [source,shellscript]
 ----
-sudo docker run --rm --name control-plane-installer-<version> --user root:$(id -g) --net host -v $(pwd):/tmp/installer --env KUBECONFIG=/tmp/installer/kubeconfig --env ID_GOV_UA_CLIENT_ID=mock --env ID_GOV_UA_CLIENT_SECRET=mock --env PLATFORM_DEPLOYMENT_MODE=development --env PLATFORM_LANGUAGE=uk --env PLATFORM_REGION=ua --entrypoint "/bin/bash" control-plane-installer:<version> -c "./install.sh -i"
+sudo docker run --rm --name control-plane-installer-<version> --user root:$(id -g) --net host -v $(pwd):/tmp/installer --env KUBECONFIG=/tmp/installer/kubeconfig --env idgovuaClientId=mock --env idgovuaClientSecret=mock --env deploymentMode=development --entrypoint "/bin/bash" control-plane-installer:<version> -c "./install.sh -i"
 ----
 +
-* де `PLATFORM_DEPLOYMENT_MODE` може бути `development` чи `production`.
-* де `PLATFORM_LANGUAGE` може бути `uk` чи `en`.
-* де `PLATFORM_REGION` може бути `ua` чи `global`.
+* де `deploymentMode` може бути `development` чи `production`.
 
-[#installer-update]
 ==== Оновлення Платформи
 
 ===== Передумови
@@ -580,11 +573,7 @@ wget -O mdtu-ddm-platform-<version>.zip https://nexus-public-mdtu-ddm-edp-cicd.a
 +
 [source,shellscript]
 ----
-<<<<<<< HEAD   (e9e32c [MDTUDDM-00000] added fixes to special-steps 1.9.6)
 unzip /tmp/mdtu-ddm-platform-<version>.zip -d /home/<user>/workdir/installer-<version>
-=======
-tar -xvzf mdtu-ddm-platform-(version).tar.gz -C ./installer-<VERSION>
->>>>>>> CHANGE (b7665d [MDTUDDM-28890] Platform deployment instructions have been m)
 ----
 
 . Перенесіть _kubeconfig_ після встановлення кластера:
@@ -689,8 +678,10 @@ sudo docker tag ${IMAGE_CHECKSUM} control-plane-installer:<version>;
 +
 [source,shellscript]
 ----
-sudo docker run --rm --name control-plane-installer-<version> --user root:$(id -g) --net host -v $(pwd):/tmp/installer --env KUBECONFIG=/tmp/installer/kubeconfig --env ID_GOV_UA_CLIENT_ID=mock --env ID_GOV_UA_CLIENT_SECRET=mock --entrypoint "/bin/bash" control-plane-installer:<version> -c "./install.sh -u"
+sudo docker run --rm --name control-plane-installer-<version> --user root:$(id -g) --net host -v $(pwd):/tmp/installer --env KUBECONFIG=/tmp/installer/kubeconfig --env idgovuaClientId=mock --env idgovuaClientSecret=mock --env deploymentMode=development --entrypoint "/bin/bash" control-plane-installer:<version> -c "./install.sh -u"
 ----
++
+TIP: де `deploymentMode` може бути `development` чи `production`, залежно від попереднього запуску.
 
 == Управління налаштуваннями Платформи
 
